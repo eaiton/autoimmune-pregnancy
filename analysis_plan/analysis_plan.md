@@ -34,7 +34,7 @@ Pregnancy and perinatal outcomes were selected from those available in the MRPRE
 
 
 Table 1. Pregnancy and perinatal outcomes.
-![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table1.png)
+![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table1.png)
 
 All outcomes will be investigated for all autoimmune diseases and drug target exposures, since there is frequent comorbidity and shared molecular pathophysiology among these autoimmune diseases (38), and mAbs are commonly indicated for multiple autoimmune conditions (see Table 3).
 
@@ -53,13 +53,13 @@ The following conditions of interest were chosen, with selection criteria: (1) a
 #### 2. TWO-SAMPLE MENDELIAN RANDOMIZATION 
 Two-sample MR will be used to assess causal relationships between the predisposition to each autoimmune diseases and the selected adverse pregnancy outcomes (described above). Though observational studies have established evidence for associations between chronic autoimmune diseases and an increased risk of adverse pregnancy outcomes, they may be subject to residual confounding by factors such as socioeconomic position (1,39) and age. Since MR utilises genetic variation as instruments, these variants are determined at conception and are less likely to relate to socioeconomic and behavioural confounding factors (40), providing a useful basis for comparison against these observational studies.
 
-![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/fig1.png)
+![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig1.png)
 Figure 1. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
 
 Two-sample MR will be conducting using the TwoSampleMR R package (42), with outcome data obtained from the MR-PREG collaboration, a meta-analysis of pregnancy outcomes across several observational databases (43,44). Since MR-PREG uses predominantly European ancestry cohorts, the largest GWAS in Europeans for each disease will be used to identify genetic variants to proxy the exposure. GWAS were identified in the IEU Open GWAS catalogue or EBI GWAS catalogue (Table 2). Notably, though these GWAS necessarily considered autoimmune diseases as a binary exposure, the genetic instruments are conceptualised as indexing an underlying predisposition to the autoimmune disease (45,46).
 
 Table 2. Autoimmune disease GWAS for Mendelian Randomisation. Largest European GWAS with available summary statistics were selected.
-![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table2.png)
+![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table2.png)
 
 Inverse variance weighted (IVW) estimates will be presented as the primary analysis. Where instruments are not available in outcome data, LD proxies with r2>0.8 (using a 1000G reference panel) will be used. Where at least 5 SNPs have been selected as genetic instruments, horizontal pleiotropy will be assessed using MR-Egger estimates which allow for an average pleiotropic effect (conceptualised as an intercept term), and weighted median which assumes that only 50% of instruments are valid. Since these pleiotropy robust methods will not be applicable where fewer instruments are available, leave-one-out analyses removing one SNP at a time will be conducted to test for outlying SNPs which may be pleiotropic.
 
@@ -70,8 +70,8 @@ All monoclonal antibody drugs indicated for the management of these selected aut
 This search identified 25 monoclonal antibody drugs (Table 3), including three currently in trials and/or awaiting approvals (Netakimab, Sirukumab, Opinercept), one withdrawn (Briankinumab) and one currently approved for use by the general population only in Russia (Olokizumab). These have drug target proteins encoded by 12 distinct genes, including several cytokines such as interleukin-6, interleukin-23 and tumour necrosis factor alpha.
 
 Table 3. Selected monoclonal antibody drugs of interest with autoimmune disease indications.
-![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table3a.png)
-![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table3b.png)
+![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table3a.png)
+![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table3b.png)
  
 #### 2.	SYSTEMATIC SEARCH FOR RCTS AND PLACENTAL TRANSFER
 To identify any RCTs which were conducted to assess the safety or efficacy of the selected mAbs during pregnancy, both the WHO International Clinical Trials Registry Platform (ICTRP) (56) and ClinicalTrails.gov (57) will be searched. Searches will be made for the drug name and the terms “pregnant” or “pregnancy” (e.g. olokizumab AND (pregnant OR pregnancy)). RCTs will be recorded which consider autoimmune disease progression outcomes during pregnancy or pregnancy safety outcomes.
@@ -109,7 +109,7 @@ This will be completed for all protein targets which have been measured in BiB.
 MATERNAL DRUG TARGET EXPOSURE
 While high LD between selected instruments would underestimate standard errors and inflate the false positive rate (32), overly stringent pruning thresholds could remove valid instruments and result in an underpowered analysis (64). In order to include several genetic variants at the gene locus while accounting for LD between them, a generalised inverse variance weighted estimator (gIVW) will be used for the primary analysis (65). 
  
- ![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/fig2.png)
+ ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig2.png)
 Figure 2. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
 
 ###### FETAL DRUG TARGET EXPOSURE
