@@ -34,7 +34,7 @@ Pregnancy and perinatal outcomes were selected from those available in the MRPRE
 
 
 Table 1. Pregnancy and perinatal outcomes.
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table1.png)
+![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table1.png)
 
 All outcomes will be investigated for all autoimmune diseases and drug target exposures, since there is frequent comorbidity and shared molecular pathophysiology among these autoimmune diseases (38), and mAbs are commonly indicated for multiple autoimmune conditions (see Table 3).
 
@@ -53,38 +53,38 @@ The following conditions of interest were chosen, with selection criteria: (1) a
 #### 2. TWO-SAMPLE MENDELIAN RANDOMIZATION 
 Two-sample MR will be used to assess causal relationships between the predisposition to each autoimmune diseases and the selected adverse pregnancy outcomes (described above). Though observational studies have established evidence for associations between chronic autoimmune diseases and an increased risk of adverse pregnancy outcomes, they may be subject to residual confounding by factors such as socioeconomic position (1,39) and age. Since MR utilises genetic variation as instruments, these variants are determined at conception and are less likely to relate to socioeconomic and behavioural confounding factors (40), providing a useful basis for comparison against these observational studies.
 
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig1.png)
+![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/fig1.png)
 Figure 1. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
 
 Two-sample MR will be conducting using the TwoSampleMR R package (42), with outcome data obtained from the MR-PREG collaboration, a meta-analysis of pregnancy outcomes across several observational databases (43,44). Since MR-PREG uses predominantly European ancestry cohorts, the largest GWAS in Europeans for each disease will be used to identify genetic variants to proxy the exposure. GWAS were identified in the IEU Open GWAS catalogue or EBI GWAS catalogue (Table 2). Notably, though these GWAS necessarily considered autoimmune diseases as a binary exposure, the genetic instruments are conceptualised as indexing an underlying predisposition to the autoimmune disease (45,46).
 
 Table 2. Autoimmune disease GWAS for Mendelian Randomisation. Largest European GWAS with available summary statistics were selected.
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table2.png)
+![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table2.png)
 
 Inverse variance weighted (IVW) estimates will be presented as the primary analysis. Where instruments are not available in outcome data, LD proxies with r2>0.8 (using a 1000G reference panel) will be used. Where at least 5 SNPs have been selected as genetic instruments, horizontal pleiotropy will be assessed using MR-Egger estimates which allow for an average pleiotropic effect (conceptualised as an intercept term), and weighted median which assumes that only 50% of instruments are valid. Since these pleiotropy robust methods will not be applicable where fewer instruments are available, leave-one-out analyses removing one SNP at a time will be conducted to test for outlying SNPs which may be pleiotropic.
 
 ### MONOCLONAL ANTIBODY TREATMENTS FOR AUTOIMMUNE DISEASES AND PREGNANCY OUTCOMES
 #### 1.	SELECTION OF DRUGS
-All monoclonal antibody drugs indicated for the management of these selected autoimmune diseases listed under Anatomical Therapeutic Chemical (ATC) classification ‘L04 Antineoplastic and Immunomodulating Agents: Immunosuppressants’ were identified as possible exposures for this study. Drug generic names, ATC codes, approval status, targets, and indications were retrieved from DrugBank (55) (https://go.drugbank.com/atc) on 28-29th November 2023. Investigational drugs were included when trials had been conducted or are ongoing for the autoimmune disease indications of interest.
+All monoclonal antibody drugs indicated for the management of these selected autoimmune diseases listed under Anatomical Therapeutic Chemical (ATC) classification ‘L04 Antineoplastic and Immunomodulating Agents: Immunosuppressants’ were identified as possible exposures for this study. Drug generic names, ATC codes, approval status, targets, and indications were retrieved from DrugBank (54) (https://go.drugbank.com/atc) on 28-29th November 2023. Investigational drugs were included when trials had been conducted or are ongoing for the autoimmune disease indications of interest.
 
 This search identified 25 monoclonal antibody drugs (Table 3), including three currently in trials and/or awaiting approvals (Netakimab, Sirukumab, Opinercept), one withdrawn (Briankinumab) and one currently approved for use by the general population only in Russia (Olokizumab). These have drug target proteins encoded by 12 distinct genes, including several cytokines such as interleukin-6, interleukin-23 and tumour necrosis factor alpha.
 
 Table 3. Selected monoclonal antibody drugs of interest with autoimmune disease indications.
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table3a.png)
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table3b.png)
+![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table3a.png)
+![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/table3b.png)
  
 #### 2.	SYSTEMATIC SEARCH FOR RCTS AND PLACENTAL TRANSFER
-To identify any RCTs which were conducted to assess the safety or efficacy of the selected mAbs during pregnancy, both the WHO International Clinical Trials Registry Platform (ICTRP) (56) and ClinicalTrails.gov (57) will be searched. Searches will be made for the drug name and the terms “pregnant” or “pregnancy” (e.g. olokizumab AND (pregnant OR pregnancy)). RCTs will be recorded which consider autoimmune disease progression outcomes during pregnancy or pregnancy safety outcomes.
+To identify any RCTs which were conducted to assess the safety or efficacy of the selected mAbs during pregnancy, both the WHO International Clinical Trials Registry Platform (ICTRP) (55) and ClinicalTrails.gov (56) will be searched. Searches will be made for the drug name and the terms “pregnant” or “pregnancy” (e.g. olokizumab AND (pregnant OR pregnancy)). RCTs will be recorded which consider autoimmune disease progression outcomes during pregnancy or pregnancy safety outcomes.
 
-For all identified drugs, current BNF advice on their use in pregnancy will be recorded (58). A systematic literature search will be conducted to summarise any research on placental transfer, searching PubMed (59) for ‘([drug name]) AND (placental transfer)’, recording any relevant results. For all searches, date and search terms will be recorded.
+For all identified drugs, current BNF advice on their use in pregnancy will be recorded (57). A systematic literature search will be conducted to summarise any research on placental transfer, searching PubMed (58) for ‘([drug name]) AND (placental transfer)’, recording any relevant results. For all searches, date and search terms will be recorded.
 
 #### 3.	DRUG TARGET MENDELIAN RANDOMIZATION
 Drug target MR will be conducted to evaluate whether biologics used to treat autoimmune diseases may cause adverse pregnancy outcomes.
 
 ##### 3.A GENETIC INSTRUMENT SELECTION
-Genetic variants will be selected for each drug target (see Table 1) using pQTLs recently identified in 54,219 UK Biobank (UKB) participants (60). Instruments selected will be those in cis (defined as those ±1Mb from the gene encoding the protein), to minimise potential for horizontal pleiotropy and since cis variants generally explain more variance in protein levels than trans variants and are more likely to be replicated (60). To ensure independence of instruments, only those in weak LD at the gene loci will be utilised, defined as R<0.02.
+Genetic variants will be selected for each drug target (see Table 1) using pQTLs recently identified in 54,219 UK Biobank (UKB) participants (59). Instruments selected will be those in cis (defined as those ±1Mb from the gene encoding the protein), to minimise potential for horizontal pleiotropy and since cis variants generally explain more variance in protein levels than trans variants and are more likely to be replicated (59). To ensure independence of instruments, only those in weak LD at the gene loci will be utilised, defined as R<0.02.
 
-If genetic instruments are unavailable in UKB, pQTLs identified by DECODE will be utilised (61). Where instruments for the same drug target are present in both cohorts, results will be replicated for comparison. This may identify epitope effects where protein-coding genetic variants alter the epitope recognised by the assay, thereby biasing the true association with protein levels (62).
+If genetic instruments are unavailable in UKB, pQTLs identified by DECODE will be utilised (60). Where instruments for the same drug target are present in both cohorts, results will be replicated for comparison. This may identify epitope effects where protein-coding genetic variants alter the epitope recognised by the assay, thereby biasing the true association with protein levels (61).
 
 Trans-acting instruments will be identified for secondary analyses. Where both cis and trans instruments are available, results for the combined pQTL instruments will be presented. To avoid including trans-acting variants with pleiotropic activity, trans variants will only be included when they have an upstream roles in the signalling pathway of interest. This approach should avoid selecting trans-pQTL that have a very distal relation to the target (for instance, via autoimmune disorders or adiposity), which could be highly pleiotropic and bias our analyses.
 
@@ -92,7 +92,7 @@ Finally, for drug targets comprised of multiple protein subunits, such as Risank
 
 
 ##### 3.B GENETIC INSTRUMENT VALIDATION
-The validity of the selected genetic variants will be assessed using proteomic data in the Born in Bradford (BiB) cohort (63). This will provide a general indication of the relevance of these pQTLs as instruments during pregnancy.
+The validity of the selected genetic variants will be assessed using proteomic data in the Born in Bradford (BiB) cohort (62). This will provide a general indication of the relevance of these pQTLs as instruments during pregnancy.
 
 The validity of these pQTLs during pregnancy will be assessed using proteomic data measured for BiB participants. Associations between pQTLs and protein concentrations will be tested using conventional multivariable regression in the following model:
 
@@ -107,9 +107,9 @@ This will be completed for all protein targets which have been measured in BiB.
 
 ##### 3.D MENDELIAN RANDOMIZATION
 MATERNAL DRUG TARGET EXPOSURE
-While high LD between selected instruments would underestimate standard errors and inflate the false positive rate (32), overly stringent pruning thresholds could remove valid instruments and result in an underpowered analysis (64). In order to include several genetic variants at the gene locus while accounting for LD between them, a generalised inverse variance weighted estimator (gIVW) will be used for the primary analysis (65). 
+While high LD between selected instruments would underestimate standard errors and inflate the false positive rate (32), overly stringent pruning thresholds could remove valid instruments and result in an underpowered analysis (63). In order to include several genetic variants at the gene locus while accounting for LD between them, a generalised inverse variance weighted estimator (gIVW) will be used for the primary analysis (64). 
  
- ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig2.png)
+ ![](https://github.com/eaiton/autoimmune_drug_pregnancy/blob/main/analysis_plan/fig2.png)
 Figure 2. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
 
 ###### FETAL DRUG TARGET EXPOSURE
@@ -121,15 +121,15 @@ Sensitivity analyses will be conducted for both maternal and fetal drug target e
 ###### I. CONFOUNDING BY LINKAGE DISEQUILIBRIUM
 For each drug target gene locus, colocalization of the genetic associations with drug target protein levels and pregnancy outcomes will be assessed. The colocalization of these associations is necessary for a true causal effect to be present; if instead the variants underlying these associations at the locus are distinct, this indicates that the results may have been confounded by LD.
 
-Colocalization of protein-gene expression data will first be examined to validate the pQTLs. Gene expression data will be obtained for whole blood from eQTLGen (66). Protein-outcome colocalization will then be assessed. All summary statistics at the locus will first be visually inspected LocusZoom (67). Colocalization will then be tested statistically using *coloc*, which assesses the probability of each possible configuration of causal variants using a Bayesian framework, for each cis region ±1Mb from the gene transcription start site. For the prior probabilities, we will assume any SNP is associated with trait 1 (p1 = 1 x 10-4), trait 2 (p2 = 1 x 10-4) or both traits (p12 = 1 x 10-6). A posterior probability for H4 (association with both traits due to a single shared causal variant) of ≥ 70% will be used as a threshold for evidence supporting colocalization, and the same threshold used for H3 (association with both traits due to a distinct causal variants). For tests where the combined posterior probability of association (PPA) for H3 and H4 is lower than 70%, suggesting low power for *coloc*, an additional sensitivity analyses relaxing the prior for both traits (p12 = 1×10−5⁠) will be conducted. This is justified by our candidate gene approach to select specific drug target gene loci, rather than the hypothesis-free genome wide context in which *coloc* was proposed.
+Colocalization of protein-gene expression data will first be examined to validate the pQTLs. Gene expression data will be obtained for whole blood from eQTLGen (65). Protein-outcome colocalization will then be assessed. All summary statistics at the locus will first be visually inspected LocusZoom (66). Colocalization will then be tested statistically using *coloc*, which assesses the probability of each possible configuration of causal variants using a Bayesian framework, for each cis region ±1Mb from the gene transcription start site. For the prior probabilities, we will assume any SNP is associated with trait 1 (p1 = 1 x 10-4), trait 2 (p2 = 1 x 10-4) or both traits (p12 = 1 x 10-6). A posterior probability for H4 (association with both traits due to a single shared causal variant) of ≥ 70% will be used as a threshold for evidence supporting colocalization, and the same threshold used for H3 (association with both traits due to a distinct causal variants). For tests where the combined posterior probability of association (PPA) for H3 and H4 is lower than 70%, suggesting low power for *coloc*, an additional sensitivity analyses relaxing the prior for both traits (p12 = 1×10−5⁠) will be conducted. This is justified by our candidate gene approach to select specific drug target gene loci, rather than the hypothesis-free genome wide context in which *coloc* was proposed.
 
 
 ###### II. CONFOUNDING BY PLEIOTROPIC EFFECTS
 The results of an MR analysis may be biased when genetic instruments affect the outcome via pathways not mediated through the exposure (violation of the exclusion restriction assumption). In this study, this may occur via pleiotropic effects of genetic variants (horizontal pleiotropy) or via direct genetic transmission of instrumented variants from maternal to fetal genotype (fetal genetic effects; see Figure 2).
 
-Horizontal pleiotropy occurs when a variant alters other risk factors associated with the adverse outcome, and may bias effect estimates in either direction. This will be accounted for using MRlink2 (64), an MR method which models pleiotropic variance to separately provide estimates of the causal effect and the horizontal pleiotropic variance. This is implemented through LD clumping variants at varying R2 thresholds, and using an external LD reference panel to model correlation between these selected variants.
+Horizontal pleiotropy occurs when a variant alters other risk factors associated with the adverse outcome, and may bias effect estimates in either direction. This will be accounted for using MRlink2 (63), an MR method which models pleiotropic variance to separately provide estimates of the causal effect and the horizontal pleiotropic variance. This is implemented through LD clumping variants at varying R2 thresholds, and using an external LD reference panel to model correlation between these selected variants.
 
-To assess possible effects of confounding via direct genetic effects, MR estimates will be replicated using SNP-outcome GWAS adjusted for the fetal/maternal genotype as applicable. For the maternal drug target exposure analysis, this will be maternal SNP-outcome GWAS adjusted for offspring genotype, while for the fetal drug target exposure analysis, this will be fetal SNP-outcome GWAS adjusted for maternal genotype. To derive these conditional GWAS, a weighted linear model (WLM) (68) was implemented in the DONUTS R package (69) using all MR-PREG collaboration studies with both maternal and offspring genotypes available.
+To assess possible effects of confounding via direct genetic effects, MR estimates will be replicated using SNP-outcome GWAS adjusted for the fetal/maternal genotype as applicable. For the maternal drug target exposure analysis, this will be maternal SNP-outcome GWAS adjusted for offspring genotype, while for the fetal drug target exposure analysis, this will be fetal SNP-outcome GWAS adjusted for maternal genotype. To derive these conditional GWAS, a weighted linear model (WLM) (67) was implemented in the DONUTS R package (68) using all MR-PREG collaboration studies with both maternal and offspring genotypes available.
 
 
 ## REFERENCES
@@ -180,25 +180,24 @@ To assess possible effects of confounding via direct genetic effects, MR estimat
 45.	Howe LJ, Tudball M, Davey Smith G, Davies NM. Interpreting Mendelian-randomization estimates of the effects of categorical exposures such as disease status and educational attainment. International Journal of Epidemiology. 2022 Jun 1;51(3):948–57. 
 46.	Burgess S, Labrecque JA. Mendelian randomization with a binary exposure variable: interpretation and presentation of causal estimates. Eur J Epidemiol. 2018 Oct 1;33(10):947–52. 
 47.	de Lange KM, Moutsianas L, Lee JC, Lamb CA, Luo Y, Kennedy NA, et al. Genome-wide association study implicates immune activation of multiple integrin genes in inflammatory bowel disease. Nat Genet. 2017 Feb;49(2):256–61. 
-48.	Saevarsdottir S, Stefansdottir L, Sulem P, Thorleifsson G, Ferkingstad E, Rutsdottir G, et al. Multiomics analysis of rheumatoid arthritis yields sequence variants that have large effects on risk of the seropositive subset. Annals of the Rheumatic Diseases. 2022 Aug 1;81(8):1085–95. 
-49.	Okada Y, Wu D, Trynka G, Raj T, Terao C, Ikari K, et al. Genetics of rheumatoid arthritis contributes to biology and drug discovery. Nature. 2014 Feb;506(7488):376–81. 
-50.	Bentham J, Morris DL, Graham DSC, Pinder CL, Tombleson P, Behrens TW, et al. Genetic association analyses implicate aberrant regulation of innate and adaptive immunity genes in the pathogenesis of systemic lupus erythematosus. Nat Genet. 2015 Dec;47(12):1457–64. 
-51.	INTERNATIONAL MULTIPLE SCLEROSIS GENETICS CONSORTIUM. Multiple sclerosis genomic map implicates peripheral immune cells and microglia in susceptibility. Science. 2019 Sep 27;365(6460):eaav7188. 
-52.	Sakaue S, Kanai M, Tanigawa Y, Karjalainen J, Kurki M, Koshiba S, et al. A cross-population atlas of genetic associations for 220 human phenotypes. Nat Genet. 2021 Oct;53(10):1415–24. 
-53.	Soomro M, Stadler M, Dand N, Bluett J, Jadon D, Jalali-Najafabadi F, et al. Comparative Genetic Analysis of Psoriatic Arthritis and Psoriasis for the Discovery of Genetic Risk Factors and Risk Prediction Modeling. Arthritis Rheumatol. 2022 Sep;74(9):1535–43. 
-54.	Cortes A, Hadler J, Pointon JP, Robinson PC, Karaderi T, Leo P, et al. Identification of multiple risk variants for ankylosing spondylitis through high-density genotyping of immune-related loci. Nat Genet. 2013 Jul;45(7):730–8. 
-55.	Wishart DS, Feunang YD, Guo AC, Lo EJ, Marcu A, Grant JR, et al. DrugBank 5.0: a major update to the DrugBank database for 2018. Nucleic Acids Res. 2018 Jan 4;46(D1):D1074–82. 
-56.	International Clinical Trials Registry Platform (ICTRP) [Internet]. [cited 2023 Jul 5]. Available from: https://www.who.int/clinical-trials-registry-platform
-57.	Home | ClinicalTrials.gov [Internet]. [cited 2023 Dec 4]. Available from: https://clinicaltrials.gov/
-58.	BNF content published by NICE [Internet]. 2023 [cited 2023 Dec 4]. Available from: https://bnf.nice.org.uk/
-59.	PubMed [Internet]. [cited 2023 Dec 4]. PubMed. Available from: https://pubmed.ncbi.nlm.nih.gov/
-60.	Sun BB, Chiou J, Traylor M, Benner C, Hsu YH, Richardson TG, et al. Plasma proteomic associations with genetics and health in the UK Biobank. Nature. 2023 Oct;622(7982):329–38. 
-61.	Ferkingstad E, Sulem P, Atlason BA, Sveinbjornsson G, Magnusson MI, Styrmisdottir EL, et al. Large-scale integration of the plasma proteome with genetics and disease. Nat Genet. 2021 Dec;53(12):1712–21. 
-62.	Suhre K, McCarthy MI, Schwenk JM. Genetics meets proteomics: perspectives for large population-based studies. Nat Rev Genet. 2021 Jan;22(1):19–37. 
-63.	Wright J, Small N, Raynor P, Tuffnell D, Bhopal R, Cameron N, et al. Cohort Profile: The Born in Bradford multi-ethnic family cohort study. International Journal of Epidemiology. 2013 Aug 1;42(4):978–91. 
-64.	Schmidt AF, Finan C, Gordillo-Marañón M, Asselbergs FW, Freitag DF, Patel RS, et al. Genetic drug target validation using Mendelian randomisation. Nat Commun. 2020 Jun 26;11(1):3255. 
-65.	Burgess S, Zuber V, Valdes-Marquez E, Sun BB, Hopewell JC. Mendelian randomization with fine-mapped genetic data: Choosing from large numbers of correlated instrumental variables. Genetic Epidemiology. 2017;41(8):714–25. 
-66.	Võsa U, Claringbould A, Westra HJ, Bonder MJ, Deelen P, Zeng B, et al. Large-scale cis- and trans-eQTL analyses identify thousands of genetic loci and polygenic scores that regulate blood gene expression. Nat Genet. 2021 Sep;53(9):1300–10. 
-67.	Boughton AP, Welch RP, Flickinger M, VandeHaar P, Taliun D, Abecasis GR, et al. LocusZoom.js: interactive and embeddable visualization of genetic association study results. Bioinformatics. 2021 Sep 29;37(18):3017–8. 
-68.	Genome-wide association study of placental weight in 179,025 children and parents reveals distinct and shared genetic influences between placental and fetal growth | medRxiv [Internet]. [cited 2023 Dec 15]. Available from: https://www.medrxiv.org/content/10.1101/2022.11.25.22282723v1
-69.	Wu Y, Zhong X, Lin Y, Zhao Z, Chen J, Zheng B, et al. Estimating genetic nurture with summary statistics of multigenerational genome-wide association studies. Proceedings of the National Academy of Sciences. 2021 Jun 22;118(25):e2023184118. 
+48.	Okada Y, Wu D, Trynka G, Raj T, Terao C, Ikari K, et al. Genetics of rheumatoid arthritis contributes to biology and drug discovery. Nature. 2014 Feb;506(7488):376–81. 
+49.	Bentham J, Morris DL, Graham DSC, Pinder CL, Tombleson P, Behrens TW, et al. Genetic association analyses implicate aberrant regulation of innate and adaptive immunity genes in the pathogenesis of systemic lupus erythematosus. Nat Genet. 2015 Dec;47(12):1457–64. 
+50.	INTERNATIONAL MULTIPLE SCLEROSIS GENETICS CONSORTIUM. Multiple sclerosis genomic map implicates peripheral immune cells and microglia in susceptibility. Science. 2019 Sep 27;365(6460):eaav7188. 
+51.	Sakaue S, Kanai M, Tanigawa Y, Karjalainen J, Kurki M, Koshiba S, et al. A cross-population atlas of genetic associations for 220 human phenotypes. Nat Genet. 2021 Oct;53(10):1415–24. 
+52.	Soomro M, Stadler M, Dand N, Bluett J, Jadon D, Jalali-Najafabadi F, et al. Comparative Genetic Analysis of Psoriatic Arthritis and Psoriasis for the Discovery of Genetic Risk Factors and Risk Prediction Modeling. Arthritis Rheumatol. 2022 Sep;74(9):1535–43. 
+53.	Cortes A, Hadler J, Pointon JP, Robinson PC, Karaderi T, Leo P, et al. Identification of multiple risk variants for ankylosing spondylitis through high-density genotyping of immune-related loci. Nat Genet. 2013 Jul;45(7):730–8. 
+54.	Wishart DS, Feunang YD, Guo AC, Lo EJ, Marcu A, Grant JR, et al. DrugBank 5.0: a major update to the DrugBank database for 2018. Nucleic Acids Res. 2018 Jan 4;46(D1):D1074–82. 
+55.	International Clinical Trials Registry Platform (ICTRP) [Internet]. [cited 2023 Jul 5]. Available from: https://www.who.int/clinical-trials-registry-platform
+56.	Home | ClinicalTrials.gov [Internet]. [cited 2023 Dec 4]. Available from: https://clinicaltrials.gov/
+57.	BNF content published by NICE [Internet]. 2023 [cited 2023 Dec 4]. Available from: https://bnf.nice.org.uk/
+58.	PubMed [Internet]. [cited 2023 Dec 4]. PubMed. Available from: https://pubmed.ncbi.nlm.nih.gov/
+59.	Sun BB, Chiou J, Traylor M, Benner C, Hsu YH, Richardson TG, et al. Plasma proteomic associations with genetics and health in the UK Biobank. Nature. 2023 Oct;622(7982):329–38. 
+60.	Ferkingstad E, Sulem P, Atlason BA, Sveinbjornsson G, Magnusson MI, Styrmisdottir EL, et al. Large-scale integration of the plasma proteome with genetics and disease. Nat Genet. 2021 Dec;53(12):1712–21. 
+61.	Suhre K, McCarthy MI, Schwenk JM. Genetics meets proteomics: perspectives for large population-based studies. Nat Rev Genet. 2021 Jan;22(1):19–37. 
+62.	Wright J, Small N, Raynor P, Tuffnell D, Bhopal R, Cameron N, et al. Cohort Profile: The Born in Bradford multi-ethnic family cohort study. International Journal of Epidemiology. 2013 Aug 1;42(4):978–91. 
+63.	Schmidt AF, Finan C, Gordillo-Marañón M, Asselbergs FW, Freitag DF, Patel RS, et al. Genetic drug target validation using Mendelian randomisation. Nat Commun. 2020 Jun 26;11(1):3255. 
+64.	Burgess S, Zuber V, Valdes-Marquez E, Sun BB, Hopewell JC. Mendelian randomization with fine-mapped genetic data: Choosing from large numbers of correlated instrumental variables. Genetic Epidemiology. 2017;41(8):714–25. 
+65.	Võsa U, Claringbould A, Westra HJ, Bonder MJ, Deelen P, Zeng B, et al. Large-scale cis- and trans-eQTL analyses identify thousands of genetic loci and polygenic scores that regulate blood gene expression. Nat Genet. 2021 Sep;53(9):1300–10. 
+66.	Boughton AP, Welch RP, Flickinger M, VandeHaar P, Taliun D, Abecasis GR, et al. LocusZoom.js: interactive and embeddable visualization of genetic association study results. Bioinformatics. 2021 Sep 29;37(18):3017–8. 
+67.	Genome-wide association study of placental weight in 179,025 children and parents reveals distinct and shared genetic influences between placental and fetal growth | medRxiv [Internet]. [cited 2023 Dec 15]. Available from: https://www.medrxiv.org/content/10.1101/2022.11.25.22282723v1
+68.	Wu Y, Zhong X, Lin Y, Zhao Z, Chen J, Zheng B, et al. Estimating genetic nurture with summary statistics of multigenerational genome-wide association studies. Proceedings of the National Academy of Sciences. 2021 Jun 22;118(25):e2023184118. 
