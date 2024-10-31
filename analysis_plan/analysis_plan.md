@@ -9,7 +9,7 @@ Observational evidence suggests an underlying chronic autoimmune disease is asso
 ### MONOCLONAL ANTIBODY TREATMENTS FOR AUTOIMMUNE DISEASES AND PREGNANCY OUTCOMES
 Given that autoimmune conditions are common in women of reproductive age, it is crucial to understand how to manage them during pregnancy. Ensuring that the disease symptoms are adequately treated must be weighed against ensuring that treatments do not increase risk of adverse pregnancy and perinatal outcomes beyond the disease themselves. Current guidelines for best clinical practice with pregnant patients recommend treating active disease and where possible ensuring clinical remission, for IBD (11,12) and rheumatic diseases (13).
 
-Treatment for autoimmune diseases has been revolutionised by the development of novel therapeutic monoclonal antibodies (mAbs). First produced in Nobel-winning experiments in 1975 (14), therapeutic applications to cancer and autoimmune disease swiftly followed, with the first drug receiving approval in the US in 1986 (15,16). Approximately 175 mAbs have now been approved by the US and EU and more are developed each year (17); they now comprise one of the bestselling drug sectors globally (16). Falling within the biological products class of medicines (biologics), their ability to bind highly specific antigen targets enables inhibition of pro-inflammatory signalling molecules such as tumour necrosis factor and interleukins within blood plasma.
+Treatment for autoimmune diseases has been revolutionised by the development of novel therapeutic monoclonal antibodies (mAbs). First produced in 1975 (14), therapeutic applications to cancer and autoimmune disease swiftly followed, with the first drug receiving approval in the US in 1986 (15,16). Approximately 175 mAbs have now been approved by the US and EU and more are developed each year (17); they now comprise one of the bestselling drug sectors globally (16). Falling within the biological products class of medicines (biologics), their ability to bind highly specific antigen targets enables inhibition of pro-inflammatory signalling molecules such as tumour necrosis factor and interleukins within blood plasma.
 
 Despite these advances, the safety of mAbs during pregnancy is largely unknown (18). Evidence and guidelines can vary between particular drugs and diseases, particularly around whether therapy should be discontinued in the third trimester (13,19). Research suggests that most biologics can cross the placenta (20), with greater rates of transfer occurring later in gestation (18). Anecdotal evidence points to potential risks. Sadly, one infant exposed to infliximab in utero died of disseminated BCG infection after receiving a vaccination at 3 months, suggesting potential for tragic harm (21). Further reports have included infant thrombocytopenia following natalizumab exposure during the third trimester (22). On the other hand, eculizumab has been used anecdotally to treat severe preeclampsia and associated acute kidney injury post-delivery (23,24), prompting speculation about its therapeutic potential here (25). 
 
@@ -32,7 +32,6 @@ Second, the causal effects of mAbs on pregnancy outcomes will be evaluated. Evid
 ### OUTCOMES
 Pregnancy and perinatal outcomes were selected from those available in the MRPREG collaboration. Seventeen outcomes were selected based on clinical relevance and previously reported observational associations, both with autoimmune diseases (5–10,37) and mAbs (21,23). These were selected by DAL, CMB, CB, KB and LA and finalised on 7/2/24 (see Table 1).
 
-
 Table 1. Pregnancy and perinatal outcomes.
 ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table1.png)
 
@@ -40,23 +39,20 @@ All outcomes will be investigated for all autoimmune diseases and drug target ex
 
 ### AUTOIMMUNE DISEASES AND PREGNANCY OUTCOMES
 #### 1. AUTOIMMUNE DISEASE EXPOSURES
-The following conditions of interest were chosen, with selection criteria: (1) autoimmune diseases, (2) which can present in women of reproductive age, and (3) are treated by mAbs, according to NICE clinical guidelines:
+The following conditions of interest were chosen, with selection criteria: (1) autoimmune diseases, (2) which can present in women of reproductive age, and (3) are treated by mAbs:
 
-* inflammatory bowel disease (IBD; entailing Crohn’s disease and ulcerative colitis)
+* inflammatory bowel disease (IBD; Crohn’s disease and ulcerative colitis)
 * rheumatoid arthritis (RA)
 * systemic lupus erythematosus (SLE)
 * multiple sclerosis (MS)
-* psoriasis vulgaris (PV, i.e. plaque psoriasis)
-*	psoriatic arthritis (PA)
-* axial spondyloarthritis (AS, previously called ankylosing spondylitis)
+* psoriasis vulgaris (PV, also known as plaque psoriasis)
+* psoriatic arthritis (PA)
+* axial spondyloarthritis (AS, including ankylosing spondylitis)
 
 #### 2. TWO-SAMPLE MENDELIAN RANDOMIZATION 
 Two-sample MR will be used to assess causal relationships between the predisposition to each autoimmune diseases and the selected adverse pregnancy outcomes (described above). Though observational studies have established evidence for associations between chronic autoimmune diseases and an increased risk of adverse pregnancy outcomes, they may be subject to residual confounding by factors such as socioeconomic position (1,39) and age. Since MR utilises genetic variation as instruments, these variants are determined at conception and are less likely to relate to socioeconomic and behavioural confounding factors (40), providing a useful basis for comparison against these observational studies.
 
-![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig1.png)
-Figure 1. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
-
-Two-sample MR will be conducting using the TwoSampleMR R package (42), with outcome data obtained from the MR-PREG collaboration, a meta-analysis of pregnancy outcomes across several observational databases (43,44). Since MR-PREG uses predominantly European ancestry cohorts, the largest GWAS in Europeans for each disease will be used to identify genetic variants to proxy the exposure. GWAS were identified in the IEU Open GWAS catalogue or EBI GWAS catalogue (Table 2). Notably, though these GWAS necessarily considered autoimmune diseases as a binary exposure, the genetic instruments are conceptualised as indexing an underlying predisposition to the autoimmune disease (45,46).
+Two-sample MR will be conducting using the TwoSampleMR R package (42), with outcome data obtained from the MR-PREG collaboration, a meta-analysis of pregnancy outcomes across several observational databases (43,44). Since MR-PREG uses predominantly European ancestry cohorts, the largest GWAS in Europeans for each disease will be used to identify genetic variants to proxy the exposure. GWAS were identified in the IEU Open GWAS catalogue or EBI GWAS catalogue (Table 2). Notably, though these GWAS considered autoimmune diseases as a binary exposure, the genetic instruments index an underlying predisposition to the autoimmune disease (45,46).
 
 Table 2. Autoimmune disease GWAS for Mendelian Randomisation. Largest European GWAS with available summary statistics were selected.
 ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table2.png)
@@ -69,7 +65,7 @@ Further sensitivity analyses will be conducted to assess pleiotropic effects spe
 #### 1.	SELECTION OF DRUGS
 All monoclonal antibody drugs indicated for the management of these selected autoimmune diseases listed under Anatomical Therapeutic Chemical (ATC) classification ‘L04 Antineoplastic and Immunomodulating Agents: Immunosuppressants’ were identified as possible exposures for this study. Drug generic names, ATC codes, approval status, targets, and indications were retrieved from DrugBank (54) (https://go.drugbank.com/atc) on 28-29th November 2023. Investigational drugs were included when trials had been conducted or are ongoing for the autoimmune disease indications of interest.
 
-This search identified 25 monoclonal antibody drugs (Table 3), including three currently in trials and/or awaiting approvals (Netakimab, Sirukumab, Opinercept), one withdrawn (Briankinumab) and one currently approved for use by the general population only in Russia (Olokizumab). These have drug target proteins encoded by 12 distinct genes, including several cytokines such as interleukin-6, interleukin-23 and tumour necrosis factor alpha.
+This search identified 25 monoclonal antibody drugs with 12 distinct protein targets (Table 3).
 
 Table 3. Selected monoclonal antibody drugs of interest with autoimmune disease indications.
 ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/table3a.png)
@@ -88,51 +84,35 @@ Genetic variants will be selected for each drug target (see Table 1) using pQTLs
 
 If genetic instruments are unavailable in UKB, pQTLs identified by DECODE will be utilised (60). Where instruments for the same drug target are present in both cohorts, results will be replicated for comparison. This may identify epitope effects where protein-coding genetic variants alter the epitope recognised by the assay, thereby biasing the true association with protein levels (61).
 
-Trans-acting instruments will be identified for secondary analyses. Where both cis and trans instruments are available, results for the combined pQTL instruments will be presented. To avoid including trans-acting variants with pleiotropic activity, trans variants will only be included when they have an upstream roles in the signalling pathway of interest. This approach should avoid selecting trans-pQTL that have a very distal relation to the target (for instance, via autoimmune disorders or adiposity), which could be highly pleiotropic and bias our analyses.
-
 Finally, for drug targets comprised of multiple protein subunits, such as Risankizumab which targets both IL-12B and IL-23A subunits comprising IL-23, separate analyses will be conducted for each subunit.
 
-
 ##### 3.B GENETIC INSTRUMENT VALIDATION
-The validity of the selected genetic variants will be assessed using proteomic data in the Born in Bradford (BiB) cohort (62). This will provide a general indication of the relevance of these pQTLs as instruments during pregnancy.
-
-The validity of these pQTLs during pregnancy will be assessed using proteomic data measured for BiB participants. Associations between pQTLs and protein concentrations will be tested using conventional multivariable regression in the following model:
-
-	Protein concentration ~ genetic instrument effect alleles + age
+The validity of the selected genetic variants will be assessed using a GWAS of proteomic data in the Born in Bradford (BiB) birth cohort (62). This will provide a general indication of the relevance of these pQTLs as instruments during pregnancy.
 	
 ##### 3.C OBSERVATIONAL ASSOCIATIONS
 Conventional multivariable regression will be conducted for comparison against MR estimates. Leveraging within-pregnancy proteomics measured in BiB cohort participants, associations between each drug target protein and pregnancy outcomes will be evaluated using the following model:
 
 	Pregnancy outcome ~ protein concentration during pregnancy + age + parity + offspring sex + best available proxy for socioeconomic position
 	
-This will be completed for all protein targets which have been measured in BiB.
+This will be completed for all available protein targets.
 
 ##### 3.D MENDELIAN RANDOMIZATION
 MATERNAL DRUG TARGET EXPOSURE
-While high LD between selected instruments would underestimate standard errors and inflate the false positive rate (32), overly stringent pruning thresholds could remove valid instruments and result in an underpowered analysis (63). In order to include several genetic variants at the gene locus while accounting for LD between them, a generalised inverse variance weighted estimator (gIVW) will be used for the primary analysis (64). 
- 
- ![](https://github.com/eaiton/autoimmune-drug-pregnancy/blob/main/analysis_plan/fig2.png)
-Figure 2. Causal diagram describing causal model underlying the Mendelian Randomization of autoimmune disease exposures on adverse pregnancy outcomes. Produced using Daggity web app (41).
-
-###### FETAL DRUG TARGET EXPOSURE
-To explore possible effects of placentally transferred mAbs, a secondary analysis will be conducted to investigate how drug target perturbation in the offspring may causally affect offspring outcomes. For mAbs shown to be transferred across the placenta (see ‘2. Systematic Search for RCTs and placental transfer’), their drug targets will be considered here. This will utilise gIVW estimators with the same genetic instruments identified above, but instrumenting offspring genotypes. Outcomes will be the same as above (see Table 1), excluding maternal outcomes (hypertensive disorders of pregnancy, gestational diabetes, gestational hypertension and preeclampsia) and pregnancy losses (miscarriage and stillbirth).
+While high LD between selected instruments would underestimate standard errors and inflate the false positive rate (32), overly stringent pruning thresholds could remove valid instruments and result in an underpowered analysis (63). In order to include several genetic variants at the gene locus while accounting for LD between them, a generalised inverse variance weighted estimator (gIVW) will be used for the primary analysis (64).
 
 ###### SENSITIVITY ANALYSES
-Sensitivity analyses will be conducted for both maternal and fetal drug target exposure analyses.
 
 ###### I. CONFOUNDING BY LINKAGE DISEQUILIBRIUM
 For each drug target gene locus, colocalization of the genetic associations with drug target protein levels and pregnancy outcomes will be assessed. The colocalization of these associations is necessary for a true causal effect to be present; if instead the variants underlying these associations at the locus are distinct, this indicates that the results may have been confounded by LD.
 
 Colocalization of protein-gene expression data will first be examined to validate the pQTLs. Gene expression data will be obtained for whole blood from eQTLGen (65). Protein-outcome colocalization will then be assessed. All summary statistics at the locus will first be visually inspected LocusZoom (66). Colocalization will then be tested statistically using *coloc*, which assesses the probability of each possible configuration of causal variants using a Bayesian framework, for each cis region ±1Mb from the gene transcription start site. For the prior probabilities, we will assume any SNP is associated with trait 1 (p1 = 1 x 10-4), trait 2 (p2 = 1 x 10-4) or both traits (p12 = 1 x 10-6). A posterior probability for H4 (association with both traits due to a single shared causal variant) of ≥ 70% will be used as a threshold for evidence supporting colocalization, and the same threshold used for H3 (association with both traits due to a distinct causal variants). For tests where the combined posterior probability of association (PPA) for H3 and H4 is lower than 70%, suggesting low power for *coloc*, an additional sensitivity analyses relaxing the prior for both traits (p12 = 1×10−5⁠) will be conducted. This is justified by our candidate gene approach to select specific drug target gene loci, rather than the hypothesis-free genome wide context in which *coloc* was proposed.
 
-
 ###### II. CONFOUNDING BY PLEIOTROPIC EFFECTS
-The results of an MR analysis may be biased when genetic instruments affect the outcome via pathways not mediated through the exposure (violation of the exclusion restriction assumption). In this study, this may occur via pleiotropic effects of genetic variants (horizontal pleiotropy) or via direct genetic transmission of instrumented variants from maternal to fetal genotype (fetal genetic effects; see Figure 2).
+The results of an MR analysis may be biased when genetic instruments affect the outcome via pathways not mediated through the exposure (violation of the exclusion restriction assumption). In this study, this may occur via pleiotropic effects of genetic variants (horizontal pleiotropy) or via direct genetic transmission of instrumented variants from maternal to fetal genotype (fetal genetic effects).
 
 Horizontal pleiotropy occurs when a variant alters other risk factors associated with the adverse outcome, and may bias effect estimates in either direction. This will be accounted for using MRlink2 (63), an MR method which models pleiotropic variance to separately provide estimates of the causal effect and the horizontal pleiotropic variance. This is implemented through LD clumping variants at varying R2 thresholds, and using an external LD reference panel to model correlation between these selected variants.
 
 To assess possible effects of confounding via direct genetic effects, MR estimates will be replicated using SNP-outcome GWAS adjusted for the fetal/maternal genotype as applicable. For the maternal drug target exposure analysis, this will be maternal SNP-outcome GWAS adjusted for offspring genotype, while for the fetal drug target exposure analysis, this will be fetal SNP-outcome GWAS adjusted for maternal genotype. To derive these conditional GWAS, a weighted linear model (WLM) (67) was implemented in the DONUTS R package (68) using all MR-PREG collaboration studies with both maternal and offspring genotypes available.
-
 
 ## REFERENCES
 1.	Conrad N, Misra S, Verbakel JY, Verbeke G, Molenberghs G, Taylor PN, et al. Incidence, prevalence, and co-occurrence of autoimmune disorders over time and by age, sex, and socioeconomic status: a population-based cohort study of 22 million individuals in the UK. The Lancet. 2023 Jun 3;401(10391):1878–90. 
