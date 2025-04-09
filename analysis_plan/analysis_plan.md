@@ -4,19 +4,39 @@
 ### AUTOIMMUNE DISEASES AND PREGNANCY OUTCOMES
 Chronic autoimmune conditions affect around 13% of women in the UK (1), encompassing conditions such as rheumatic diseases, inflammatory bowel disease, and multiple sclerosis. More common amongst female patients, these conditions are often commonly diagnosed before menopause; in studies of women in high income countries, incidence of IBD is highest amongst those aged 20-29 (2), while women aged 40-49 have the highest incidence of MS (3) and systemic lupus erythematous (4).
 	
-Observational evidence suggests an underlying autoimmune condition is associated with an increased odds of adverse pregnancy outcomes. Meta-analyses of observational studies have found that active inflammatory bowel disease is associated with an increased risk of pre-term birth, small-for-gestational-age birthweight, stillbirth, and congenital anomalies (5). Rheumatic diseases, encompassing both rheumatic arthritis and systemic lupus erythematosus, have been associated with increased risk of preterm birth, intrauterine growth restriction (6), and pre-eclampsia (7). Adverse outcomes have similarly been associated with multiple sclerosis (8) and axial spondyloarthritis (9). Though there is comparatively less evidence on psoriasis, a recent population-wide study of Sweden and Denmark found an association between maternal psoriasis and increased risks of gestational diabetes and hypertensive disorders of pregnancy (10). There is a need to provide comprehensive evidence since rarer conditions and outcomes are relatively under-studied, and existing observational studies may be subject to residual confounding such as by medication use or socioeconomic position.
+Observational evidence suggests an underlying autoimmune condition is associated with an increased odds of adverse pregnancy outcomes. Meta-analyses of observational studies have found that active inflammatory bowel disease is associated with an increased risk of preterm birth, small-for-gestational-age birthweight, stillbirth, and congenital anomalies (5). Rheumatic diseases, encompassing both rheumatic arthritis and systemic lupus erythematosus, have been associated with increased risk of preterm birth, intrauterine growth restriction (6), and preeclampsia (7). Adverse outcomes have similarly been associated with multiple sclerosis (8) and axial spondyloarthritis (9). Though there is comparatively less evidence on psoriasis, a recent population-wide study of Sweden and Denmark found an association between maternal psoriasis and increased risks of gestational diabetes and hypertensive disorders of pregnancy (10). There is a need to provide comprehensive evidence since rarer conditions and outcomes are relatively under-studied, and existing observational studies may be subject to residual confounding such as by socioeconomic position.
 	
 Mendelian randomization (MR) is a causal inference method which leverages genetic data. MR is commonly implemented in instrumental variable analyses which treat genetic variants associated with an exposure of interest as randomly inherited instrumental variables, ‘genetic instruments’, to index an exposures’ causal effect on an outcome (11). Three core instrumental variable assumptions are required for an MR analysis: (1) genetic variants are associated with the exposure (relevance), (2) there are no confounders of the genetic variant-outcome associations (independence), and (3) genetic variants only act on the outcome through their effect on the exposure of interest (the exclusion restriction).
 	
 ## RESEARCH AIMS
-This study aims to characterise the causal effects of autoimmune diseases on adverse pregnancy and perinatal outcomes will be ascertained.
+This study aims to characterise the causal effects of autoimmune diseases on adverse pregnancy and perinatal outcomes.
 
 ## METHODS
 ### OUTCOMES
 Pregnancy and perinatal outcomes were selected from those available in the MRPREG collaboration. Seventeen outcomes were selected based on clinical relevance and previously reported observational associations with autoimmune diseases (5-10). These were selected by DAL, CMB, CB, KB and LA and finalised on 7/2/24 (see Table 1).
 	
 Table 1. Pregnancy and perinatal outcomes.
-![](https://github.com/eaiton/autoimmune-pregnancy/blob/main/analysis_plan/table1.png)
+| Primary outcomes |
+| --- |
+| Miscarriage|
+| Stillbirth |
+| Hypertensive disorders of pregnancy |
+| Gestational diabetes mellitus |
+| Preterm birth |
+| Small for gestational age |
+| Large for gestational age |
+| Low Apgar score at 5 minutes |
+| Neonatal intensive care unit admission (NICU) |
+
+| Secondary outcomes |
+| --- |
+| Gestational hypertension |
+| Preeclampsia |
+| Preterm birth (spontaneous) |
+| Birthweight |
+| Low birthweight |
+| High birthweight |
+| Gestational age |
 	
 ### AUTOIMMUNE DISEASES EXPOSURES
 We selected autoimmune conditions which can present in women of reproductive age (15-44 years) (1), for which a publicly available GWAS with at least 5,000 cases had been published:
