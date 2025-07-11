@@ -52,8 +52,8 @@ These scripts assume the following directory structure:
 ```
 
 ## Environmental variables
-The code uses some environment variables, which need to be set in your linux environment. 
-Directories can be temporarily set with:
+The code uses some environmental variables which need to be set in your linux environment. 
+These can be temporarily set with:
 
 ```bash
 export AUTOIMMUNE_DIR=".../" # directory with /working inside
