@@ -22,10 +22,9 @@ library(dplyr)
 library(tidyr)
 
 # Set directories
-home_dir <- paste0(Sys.getenv("DRUGTARGET_DIR"), "working/")
-out_dir <- file.path(home_dir, "data/autoimmune/gwas/")
-gwas_dir <- file.path(home_dir, "data/autoimmune/gwas/")
-rdsf_ieu2 <- Sys.getenv("RDSF_IEU2")
+home_dir <- paste0(Sys.getenv("AUTOIMMUNE_DIR"), "working/")
+gwas_dir <- file.path(home_dir, "data/gwas/")
+out_dir <- gwas_dir
 
 ###############################################################################
 #                              List exposures                                 #
@@ -54,8 +53,9 @@ write.csv(opengwas_list, paste0(out_dir, "/opengwas_list.csv"), row.names = FALS
 
 ### Use API to extract instruments
 opengwas_id_available <- opengwas_id[opengwas_id != "ss" & opengwas_id != "ms"]
-# multiple sclerosis gwas doens't load for some reason
-# systemic sclerosis gwas not on opengwas and no summary statistics
+# multiple sclerosis gwas doesn't load,
+# systemic sclerosis gwas not on opengwas and no summary statistics,
+# so these are clumped separately below
 
 ### Loop to extract and save locally
 for(i in seq(1:10)){
@@ -96,7 +96,7 @@ opengwas_id <- "ieu-b-18"
 
 file_path <- paste0(out_dir, phenotype_id)
 
-### Read in and format VCF - computationally intensive stage, don't re-run
+### Read in and format VCF - nb. computationally intensive so don't re-run
 print("Formatting VCF")
 tmp <- format_vcf(id = opengwas_id, vcf_file_path = gwas_dir,
         exposure_name = phenotype_id)
@@ -154,7 +154,7 @@ system(paste0("wget -nc ", ss_url, " -O ", out_dir, "other/lopez-isac-2019.txt")
 # check download
 system(paste0("head ", out_dir, "other/lopez-isac-2019.txt"))
 system(paste0("awk '{print $1}' ", out_dir, "other/lopez-isac-2019.txt | uniq -c"))
-# missing A2 information
+# missing allele information (column 'A2') so cannot be used
 
 # download GWAS hits manually since some of these have effect allele information
 # https://www.ebi.ac.uk/gwas/studies/GCST009131
@@ -179,7 +179,6 @@ ss_clean <- tibble(ss) %>%
         se_col = "se",
         eaf_col = "RISK.ALLELE.FREQUENCY",
         effect_allele_col = "effect_allele",
-        #other_allele_col = "other_allele",
         pval_col = "P.VALUE",
         ncase_col = "ncase",
         ncontrol_col = "ncontrol",
@@ -190,15 +189,13 @@ ss_clean <- tibble(ss) %>%
         pos_col = "CHR_POS",
         log_pval = FALSE)
 # SNPs without a known effect allele:
-ss_clean[ss_clean$mr_keep.exposure == FALSE, ] # 23
-# lose 11 SNPs!
-# keep in these SNPs to extract for now, in case authors come back with more info
+ss_clean[ss_clean$mr_keep.exposure == FALSE, ] # 23, so lose 11 SNPs
 ss_clean$exposure <- "Systemic sclerosis"
 ss_clean$id.exposure <- "ss"
 
 # SNPs given for b38, we use b37
 # only analysis this would affect is MHC region exclusion sensitivity
-# changing pos.exposure from b38 to b37 for SNP on chr6:
+# so changing base pair position from b38 to b37 for SNP on chr6:
 # using dbSNP 19th Nov 24: https://www.ncbi.nlm.nih.gov/snp/?term=rs633724
 ss_clean$pos.exposure[ss_clean$SNP == "rs633724"] <- "106734040"
 

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-#                             Run MR analysis                                 #
+#                             Run MR analyses                                 #
 #                                                                             #
 ###############################################################################
 
@@ -21,16 +21,16 @@ x <- c("dplyr", "purrr", "data.table", "TwoSampleMR", "stringr", "tidyr")
 lapply(x, require, character.only = TRUE)
 
 # Set directories
-home_dir <- paste0(Sys.getenv("DRUGTARGET_DIR"), "working/")
-data_dir <- file.path(home_dir, "data/autoimmune/")
-gwas_dir <- file.path(home_dir, "data/autoimmune/gwas/")
-exp_data_dir <- file.path(data_dir, "/exposure_dat/")
+home_dir <- paste0(Sys.getenv("AUTOIMMUNE_DIR"), "working/")
+data_dir <- file.path(home_dir, "data/")
+gwas_dir <- file.path(data_dir, "gwas/")
+exp_data_dir <- file.path(data_dir, "exposure_dat/")
 outcome_data_dir <- file.path(data_dir, "/outcome/")
-out_dir <- paste0(home_dir, "/results/autoimmune/")
+out_dir <- paste0(home_dir, "/results/")
 setwd(home_dir)
 
 # Load functions
-source("scripts/autoimmune_mab_pregnancy/functions/generate_outdat_with_proxies.R")
+source("scripts/functions/generate_outdat_with_proxies.R")
 
 # define MHC region on chr6
 # according to GRC: https://www.ncbi.nlm.nih.gov/grc/human/regions/MHC?asm=GRCh37
@@ -60,15 +60,15 @@ outcome_clean <- data.frame(outcome = c(all_outcomes),
     outcome_clean = c("Miscarriage", "Stillbirth", "Hypertensive disorders of pregnancy",
     "Gestational diabetes mellitus", "Preterm birth", "Small for gestational age",
     "Large for gestational age", "Low Apgar score at 5 minutes", "NICU admission",
-    "Gestational hypertension", "Preeclampsia", "Birthweight",
-    "Low birthweight", "High birthweight", "Gestational age"))
+    "Preterm birth (spontaneous)",  "Gestational hypertension", "Preeclampsia",
+    "Birthweight", "Low birthweight", "High birthweight", "Gestational age"))
 
 ###############################################################################
 #                            Load Outcome datasets                            #
 ###############################################################################
 
 # read in full file for maternal-fetal duos GWAS
-full_duos <- fread(paste0(outcome_data_dir, "/duos_out_dat.txt")) %>%
+full_duos <- fread(paste0(home_dir, "/data/duos_out_dat.txt")) %>%
     mutate(chr.outcome = chr, pos.outcome = pos,
             effect_allele.outcome = effect_allele,
             other_allele.outcome = other_allele, eaf.outcome = NA,
@@ -80,7 +80,7 @@ full_duos <- fread(paste0(outcome_data_dir, "/duos_out_dat.txt")) %>%
     filter(outcome %in% all_outcomes)
 
 # read in full file for study level GWAS
-full_stu <- fread(paste0(outcome_data_dir, "/stu_out_dat.txt")) %>%
+full_stu <- fread(paste0(home_dir, "/data/stu_out_dat.txt")) %>%
         mutate(chr.outcome = chr, pos.outcome = pos,
             effect_allele.outcome = effect_allele,
             other_allele.outcome = other_allele, eaf.outcome = eaf,
@@ -102,7 +102,7 @@ studies <- unique(full_stu$study)
 # select methods
 mr_methods <- c("mr_ivw", "mr_egger_regression", "mr_weighted_median")
 
-# dataframes to write to within loop
+# dataframes to write results to
 mhc_record <- data.frame()
 mr_res <- data.frame()
 study_loo_res <- data.frame()
@@ -221,7 +221,7 @@ for(exposure_name in all_exposures){
         mr_res_loo_snp <- cbind(mr_res_loo_snp, ma_sample_sizes)
         mr_res <- rbind(mr_res, mr_res_loo_snp)
 
-        ### 3 - run mr excluding instruments in MHC HLA region
+        ### 3 - run mr excluding instruments in HLA / MHC region
         mhc_snps <- ma_dat$SNP[(ma_dat$chr.exposure == 6 &
             ma_dat$pos.exposure >= mhc_start & ma_dat$pos.exposure <= mhc_end)]
 
@@ -240,7 +240,7 @@ for(exposure_name in all_exposures){
                 MHC_instruments_excluded = mhc_snps)
             mhc_record <- rbind(mhc_record, mhc_record_tmp)
 
-            # run mr again
+            # run mr again without HLA
             ma_dat_no_mhc <- ma_dat[!(ma_dat$SNP %in% mhc_snps),]
             mr_res_tmp <- mr(ma_dat_no_mhc, method_list = mr_methods) %>% 
              mutate(exposure = exposure_name, id.outcome = outcome_name,
@@ -404,15 +404,10 @@ for(exposure_name in all_exposures){
 
 }
 
+# inspect to check analyses ran successfully
 head(mr_res)
 table(mr_res$outcome, mr_res$exposure)
-
 dim(study_loo_res)
-# 15 outcomes * 7 studies
-# 15*7
-
-study_loo_res %>% filter(outcome == "gdm_subsamp", analysis == "UKB left out")
-mr_res %>% filter(outcome == "gdm_subsamp") 
 
 ###############################################################################
 #                         Clean and scale MR results                          #
@@ -466,7 +461,7 @@ mr_res_cont <- mr_res %>%
         outcome == "zbw_all" ~ b/1,
         outcome == "ga_all" ~ b/1.89,
         .default = b),
-	se = case_when(
+	  se = case_when(
         outcome == "zbw_all" ~ se/1,
         outcome == "ga_all" ~ se/1.89,
         .default = se),
@@ -479,7 +474,7 @@ mr_res_cont <- mr_res %>%
     up_ci = up_ci * log(2),
     # add clean labels for plots & tables
     `Sample size` = paste0(max_n),
-     `Beta (95% CI)` = sprintf("%.2f (%.2f - %.2f)", b, lo_ci, up_ci)
+     `Beta (95% CI)` = sprintf("%.3f (%.3f - %.3f)", b, lo_ci, up_ci)
      )
 
 ### Leave one study out sensitivity analysis ##################################
@@ -493,12 +488,17 @@ study_loo_res <- study_loo_res %>%
 study_loo_res_binary <- study_loo_res %>%
   # restrict to binary
   filter(!(outcome %in% continuous_outcomes)) %>%
-  # scale to per doubling in liability
+  # add CIs
   mutate(
-    b = estimate * log(2),
-    lo_ci = (b - qnorm(0.975) * se) * log(2),
-    up_ci = (b + qnorm(0.975) * se) * log(2),
-    # add OR CIs
+    b = estimate,
+    lo_ci = (b - qnorm(0.975) * se),
+    up_ci = (b + qnorm(0.975) * se)) %>% 
+  # scale to per doubling in liability
+    mutate(
+      b = b * log(2),
+      lo_ci = lo_ci * log(2),
+      up_ci = up_ci * log(2),
+  # add OR CIs
     or = exp(b),
     or_lci95 = exp(lo_ci),
     or_uci95 = exp(up_ci),
@@ -521,7 +521,7 @@ study_loo_res_cont <- study_loo_res %>%
         outcome == "zbw_all" ~ b/1,
         outcome == "ga_all" ~ b/1.89,
         .default = b),
-	se = case_when(
+	  se = case_when(
         outcome == "zbw_all" ~ se/1,
         outcome == "ga_all" ~ se/1.89,
         .default = se),
@@ -534,7 +534,7 @@ study_loo_res_cont <- study_loo_res %>%
     up_ci = up_ci * log(2),
     # add clean labels for plots & tables
     `Sample size` = paste0(sum_max_n),
-     `Beta (95% CI)` = sprintf("%.2f (%.2f - %.2f)", b, lo_ci, up_ci)
+     `Beta (95% CI)` = sprintf("%.3f (%.3f - %.3f)", b, lo_ci, up_ci)
      )
 
 ###############################################################################

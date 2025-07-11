@@ -2,12 +2,11 @@
 #                  Function to add proxies to outcome data                 #
 ############################################################################
 
-# Written May 2024 by Lizzy Aiton (e.aiton@bristol.ac.uk) and Amy Taylor
-# Generates outcome data files including proxy SNPS, if avalable
-
-# no longer using exposure file for this since format_vcf() function was too intensive
+# Locally generates outcome data including proxy SNPS, if available
 # requires library(tidyr)
-# here outcome_dat = full outcome dataset, including proxy SNPs
+# outcome_dat is the full outcome dataset, including all proxy SNPs
+# proxies is the list of proxies retrieved using MRutils::get_proxies in
+# 2_a_sel_proxies.R
 
 generate_outdat_with_proxies <- function(exposure_dat, outcome_dat, outcome_name,
     proxies){
@@ -21,7 +20,7 @@ tmp_outcome_dat <- outcome_dat %>%
 ### Remove any duplicated SNPs
 tmp_outcome_dat <- tmp_outcome_dat[!duplicated(tmp_outcome_dat$SNP), ]
 
-### Check whether outcome available
+### Check whether outcome is available
 if(dim(tmp_outcome_dat)[1] == 0){
   print(paste("Outcome", outcome_name, "not available"))
 
@@ -38,7 +37,7 @@ if(dim(tmp_outcome_dat)[1] == 0){
 } else {
 ### Identify proxies
 
-# Specify all available snps
+# Specify all available SNPs
 outcome_snps <- expand.grid(
   SNP = c(exposure_dat$SNP), outcome = unique(outcome_dat$outcome))
 # Left join outcome_dat, NAs if missing
@@ -101,9 +100,9 @@ tmp3 <- tmp2 %>%
   group_by(SNP) %>%
   # Remove any proxies with missing outcome data
   drop_na() %>%
-  # Select max R2 value, keep ties where several have same R2
+  # Select max R2 value, keep ties if several have same R2
   slice_max(R2, with_ties = TRUE) %>%
-  # Select random proxy SNP where several have same R2
+  # Select random proxy SNP if several have same R2
   slice_sample(n = 1)
         
 }
@@ -153,7 +152,8 @@ if( (dim(need_proxies)[1] > 0) & (dim(tmp3)[1] == 0) ){
   # Create final dataframe which has replaced missing SNPs with their proxies
   outcome_dat_cols <- colnames(outcome_dat)
   tmp5 <- tmp5 %>% select(all_of(outcome_dat_cols))
-
+  
+  # Return message with number of SNPs which could be proxied
   print(paste0(dim(tmp5)[1], " proxies identified."))
 
   tmp_outcome_dat <- rbind(tmp_outcome_dat, tmp5)
@@ -161,6 +161,7 @@ if( (dim(need_proxies)[1] > 0) & (dim(tmp3)[1] == 0) ){
 
 }
 
+# Return full outcome dataset with added proxies
 tmp_outcome_dat
 
 }

@@ -2,18 +2,18 @@
 	
 ## BACKGROUND
 ### AUTOIMMUNE DISEASES AND PREGNANCY OUTCOMES
-Chronic autoimmune conditions affect around 13% of women in the UK (1), encompassing conditions such as rheumatic diseases, inflammatory bowel disease, and multiple sclerosis. More common amongst female patients, these conditions are often commonly diagnosed before menopause; in studies of women in high income countries, incidence of IBD is highest amongst those aged 20-29 (2), while women aged 40-49 have the highest incidence of MS (3) and systemic lupus erythematous (4).
+Chronic autoimmune conditions affect around 13% of women in the UK (1), encompassing conditions such as rheumatic conditions, inflammatory bowel disease, and multiple sclerosis. More common amongst female patients, these conditions are often commonly diagnosed before or during the reproductive years; in studies of women in high income countries, incidence of IBD is highest amongst those aged 20-29 (2), while women aged 40-49 have the highest incidence of MS (3) and systemic lupus erythematous (4).
 	
-Observational evidence suggests an underlying autoimmune condition is associated with an increased odds of adverse pregnancy outcomes. Meta-analyses of observational studies have found that active inflammatory bowel disease is associated with an increased risk of preterm birth, small-for-gestational-age birthweight, stillbirth, and congenital anomalies (5). Rheumatic diseases, encompassing both rheumatic arthritis and systemic lupus erythematosus, have been associated with increased risk of preterm birth, intrauterine growth restriction (6), and preeclampsia (7). Adverse outcomes have similarly been associated with multiple sclerosis (8) and axial spondyloarthritis (9). Though there is comparatively less evidence on psoriasis, a recent population-wide study of Sweden and Denmark found an association between maternal psoriasis and increased risks of gestational diabetes and hypertensive disorders of pregnancy (10). There is a need to provide comprehensive evidence since rarer conditions and outcomes are relatively under-studied, and existing observational studies may be subject to residual confounding such as by socioeconomic position.
+Observational evidence suggests an underlying autoimmune condition may be associated with an increased odds of adverse pregnancy outcomes. Meta-analyses of observational studies have found that active inflammatory bowel disease is associated with an increased risk of preterm birth, small-for-gestational-age birthweight, stillbirth, and congenital anomalies (5). Rheumatic diseases, encompassing both rheumatic arthritis and systemic lupus erythematosus, have been associated with increased risk of preterm birth, intrauterine growth restriction (6), and preeclampsia (7). Adverse outcomes have similarly been associated with multiple sclerosis (8) and ankylosing spondylitis (9). Though there is comparatively less evidence on psoriasis, a recent population-wide study of Sweden and Denmark found an association between maternal psoriasis and increased risks of gestational diabetes and hypertensive disorders of pregnancy (10). There is a need to provide comprehensive evidence since rarer conditions and outcomes are relatively under-studied, and existing observational studies may be subject to residual confounding such as by socioeconomic position.
 	
 Mendelian randomization (MR) is a causal inference method which leverages genetic data. MR is commonly implemented in instrumental variable analyses which treat genetic variants associated with an exposure of interest as randomly inherited instrumental variables, ‘genetic instruments’, to index an exposures’ causal effect on an outcome (11). Three core instrumental variable assumptions are required for an MR analysis: (1) genetic variants are associated with the exposure (relevance), (2) there are no confounders of the genetic variant-outcome associations (independence), and (3) genetic variants only act on the outcome through their effect on the exposure of interest (the exclusion restriction).
 	
 ## RESEARCH AIMS
-This study aims to characterise the causal effects of autoimmune diseases on adverse pregnancy and perinatal outcomes.
+This study aims to characterise the causal effects of autoimmune conditions on adverse pregnancy and perinatal outcomes.
 
 ## METHODS
 ### OUTCOMES
-Pregnancy and perinatal outcomes were selected from those available in the MRPREG collaboration. Seventeen outcomes were selected based on clinical relevance and previously reported observational associations with autoimmune diseases (5-10). These were selected by DAL, CMB, CB, KB and LA and finalised on 7/2/24 (see Table 1).
+Pregnancy and perinatal outcomes were selected from those available in the MR-PREG collaboration. Outcomes were selected based on clinical relevance and previously reported observational associations with autoimmune conditions (5-10). These were selected by DAL, MCB, CB, KB and EA and finalised on 7/2/24 (see Table 1).
 	
 Table 1. Pregnancy and perinatal outcomes.
 | Primary outcomes |
@@ -38,26 +38,24 @@ Table 1. Pregnancy and perinatal outcomes.
 | High birthweight |
 | Gestational age |
 	
-### AUTOIMMUNE DISEASES EXPOSURES
+### AUTOIMMUNE CONDITION EXPOSURES
 We selected autoimmune conditions which can present in women of reproductive age (15-44 years) (1), for which a publicly available GWAS with at least 5,000 cases had been published:
 
-* axial spondyloarthritis (AS)
-* celiac disease (CD)
-* Hashimoto's thyroiditis (HT)
-* inflammatory bowel disease (IBD)
-* multiple sclerosis (MS)
-* psoriasis (Ps)
-* rheumatoid arthritis (RA)
-* systemic lupus erythematosus (SLE)
+* ankylosing spondylitis
+* coeliac disease
+* Hashimoto's thyroiditis
+* inflammatory bowel disease
+* multiple sclerosis
+* psoriasis
+* rheumatoid arthritis
+* systemic lupus erythematosus
 * systemic sclerosis
-* type 1 diabetes (T1D)
+* type 1 diabetes
 	
 ### TWO-SAMPLE MENDELIAN RANDOMIZATION 
-Two-sample MR will be conducting using the TwoSampleMR R package (12), with outcome data obtained from the MR-PREG collaboration, a meta-analysis of pregnancy outcomes across several observational databases. GWAS were identified in the IEU Open GWAS catalogue or EBI GWAS catalogue, and the largest GWAS for each disease will be used to identify genetic instruments.
+Two-sample MR will be conducted using the TwoSampleMR R package (12). Genome-wide associaton studies (GWAS) for autoimmune conditions will be identified in the IEU Open GWAS catalogue or EBI GWAS catalogue, using the largest GWAS for each condition to identify genetic instruments. Genetic data for pregnancy outcomes will be obtained from the MR-PREG collaboration of studies.
 	
-Inverse variance weighted (IVW) estimates will be presented as the primary analysis. Where instruments are not available in outcome data, LD proxies with r2>0.8 (using a 1000G reference panel) will be used. Where at least 5 SNPs have been selected as genetic instruments, horizontal pleiotropy will be assessed using MR-Egger estimates which allow for an average pleiotropic effect (conceptualised as an intercept term), and weighted median which assumes that only 50% of instruments are valid. Since these pleiotropy robust methods will not be applicable where fewer instruments are available, leave-one-out analyses removing one SNP at a time will be conducted to test for outlying SNPs which may be pleiotropic. Instruments within the MHC region will also be excluded in a sensitivity analysis, since this region is highly pleiotropic.
-	
-Finally, MR estimates will be replicated using a maternal SNP-outcome GWAS adjusted for fetal genotype, to assess robustness of effects to confounding by direct genetic transmission. To derive these conditional outcome GWAS, a weighted linear model (WLM) (13) was implemented in the DONUTS R package (14) using all MR-PREG collaboration studies with both maternal and offspring genotypes available.
+Inverse variance weighted (IVW) estimates will be presented as the primary analysis. Where instruments are not available in outcome data, LD proxies with r2>0.8 (using a 1000G reference panel) will be used. Where at least 5 SNPs have been selected as genetic instruments, horizontal pleiotropy will be assessed using MR-Egger estimates which allow for an average pleiotropic effect (conceptualised as an intercept term), and weighted median which assumes that only 50% of instruments are valid. Since these pleiotropy robust methods will not be applicable where fewer instruments are available, leave-one-out analyses removing one SNP at a time will be conducted to test for outlying SNPs which may be pleiotropic. Instruments within the MHC region will also be excluded in a sensitivity analysis, since this region is highly pleiotropic. Finally, effects will be estimated using a maternal SNP-outcome GWAS adjusted for fetal genotype, to assess robustness of effects to confounding by direct genetic transmission. To derive these conditional outcome GWAS, a weighted linear model (WLM) (13) was implemented in the DONUTS R package (14) using all MR-PREG collaboration studies with both maternal and offspring genotypes available.
 	
 ## REFERENCES
 1.	Conrad N, Misra S, Verbakel JY, Verbeke G, Molenberghs G, Taylor PN, et al. Incidence, prevalence, and co-occurrence of autoimmune disorders over time and by age, sex, and socioeconomic status: a population-based cohort study of 22 million individuals in the UK. The Lancet. 2023 Jun 3;401(10391):1878–90. 

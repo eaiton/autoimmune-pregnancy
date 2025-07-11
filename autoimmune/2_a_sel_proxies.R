@@ -1,5 +1,7 @@
 ###############################################################################
-#                            Select exposure SNPs                             #
+#                                                                             #
+#                              Find proxy SNPs                                #
+#                                                                             #
 ###############################################################################
 
 ###############################################################################
@@ -19,23 +21,21 @@ x <- c("dplyr", "tibble", "TwoSampleMR", "MRutils", "ieugwasr", "plinkbinr")
 lapply(x, require, character.only = TRUE)
 
 # Set directories
-home_dir <- paste0(Sys.getenv("DRUGTARGET_DIR"), "working/")
-gwas_dir <- file.path(home_dir, "data/autoimmune/gwas/")
-out_dir <- file.path(home_dir, "/data/autoimmune/exposure_dat/")
-proxies_dir <- file.path(home_dir, "/data/autoimmune/proxies/")
+home_dir <- paste0(Sys.getenv("AUTOIMMUNE_DIR"), "working/")
+gwas_dir <- file.path(home_dir, "data/gwas/")
+out_dir <- file.path(home_dir, "/data/exposure_dat/")
+proxies_dir <- file.path(home_dir, "/data/proxies/")
 setwd(home_dir)
 
 # Read in exposure GWAS information
 opengwas_list <- read.csv(paste0(gwas_dir, "/opengwas_list.csv"))
 
 ###############################################################################
-#                             Select exposure                                 #
+#               Find proxies for all exposure instruments                     #
 ###############################################################################
 
-#array_index <- as.numeric((Sys.getenv("SLURM_ARRAY_TASK_ID")))
-#print(array_index)
-
-# MRlink doesn't allow concurrent requests, so looping instead:
+# MRlink doesn't allow concurrent requests, so looping through exposures
+# instead of using array job:
 
 for(array_index in seq(1:11)){
 
@@ -44,10 +44,6 @@ for(array_index in seq(1:11)){
 
     opengwas_id <- opengwas_list$opengwas_id[array_index]
     print(opengwas_id)
-
-###############################################################################
-#               Find proxies for all exposure instruments                     #
-###############################################################################
 
     instr <- read.csv(paste0(out_dir, "/", phenotype_id, "_pval_5e_08_clumped.csv"))
 
